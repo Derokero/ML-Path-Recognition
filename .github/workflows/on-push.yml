@@ -10,6 +10,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
       - name: Clone source
         run: |
@@ -23,12 +27,12 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          cd ML-Path-Recognition/dist
+          cd ML-Path-Recognition
 
           git switch --orphan gh-pages
-          git add . --force
+          git add dist/* --force
 
-          git config user.name "Deploy Boy"
+          git config user.name "Deploy Bot"
           git config user.email "Deploy.Bot@beep.boop"
-          git commit -am "Bot: Deployment in progress..."
+          git commit -am "Bot: Deployment commit 🤖"
           git push --set-upstream origin gh-pages --force-with-lease
