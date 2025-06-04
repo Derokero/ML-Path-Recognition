@@ -1,0 +1,29 @@
+name: Deploy to GitHub Pages
+
+run-name: Deploying to pages 🚀
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone source
+        run: |
+          git clone https://derokero:${{secrets.GITHUB_TOKEN}}@github.com/Derokero/ML-Path-Recognition.git
+
+      - name: Build static files
+        run: |
+          cd ML-Path-Recognition
+          npm clean-install
+          npm run build
+
+      - name: Deploy to GitHub Pages
+        run: |
+          git switch --orphan gh-pages
+          git add . --force
+
+          git config user.name "Deploy Boy"
+          git config user.email "Deploy.Bot@beep.boop"
+          git commit --amend -am "Bot: Deployment in progress..."
+          git push --force-with-lease
