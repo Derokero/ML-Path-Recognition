@@ -23,10 +23,12 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
+          cd ML-Path-Recognition/dist
+
           git switch --orphan gh-pages
           git add . --force
 
           git config user.name "Deploy Boy"
           git config user.email "Deploy.Bot@beep.boop"
-          git commit --amend -am "Bot: Deployment in progress..."
-          git push --force-with-lease
+          git commit -am "Bot: Deployment in progress..."
+          git push --set-upstream origin gh-pages --force-with-lease
